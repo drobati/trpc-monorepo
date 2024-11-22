@@ -1,0 +1,9 @@
+{
+    "name": "auth",
+    "version": "1.0.0",
+    "license": "MIT",
+    "scripts": {
+        "dev": "ts-node-dev index.ts"
+    },
+    "main": "index.ts"
+}

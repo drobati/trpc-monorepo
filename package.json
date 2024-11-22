@@ -1,0 +1,25 @@
+{
+  "name": "app",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "private": true,
+  "scripts": {
+    "build": "turbo run build",
+    "dev": "turbo run dev --no-cache --parallel --continue",
+    "format": "prettier --write \"**/*.{ts,tsx,md}\"",
+    "lint": "turbo run lint",
+    "test": "turbo run test"
+  },
+  "workspaces": [
+    "apps/*",
+    "apis/*",
+    "packages/*"
+  ],
+  "devDependencies": {
+    "concurrently": "^5.2.0",
+    "turbo": "^1.6.3",
+    "wsrun": "^5.2.0"
+  }
+
+}
