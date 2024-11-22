@@ -53,7 +53,7 @@ const createContext = ( { req, res, }: trpcExpress.CreateExpressContextOptions) 
 type Context = inferAsyncReturnType<typeof createContext>;
 export const t = initTRPC.context<Context>().create();
 
-export const appRouter = t.router({
+export const AppRouter = t.router({
     login: t.procedure
         .input(z.object({
             username: z.string(),
@@ -85,7 +85,7 @@ const port = 8081;
 app.use(
     '/trpc',
     trpcExpress.createExpressMiddleware({
-        router: appRouter,
+        router: AppRouter,
         createContext,
     }),
 );
