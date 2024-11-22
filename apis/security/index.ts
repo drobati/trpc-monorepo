@@ -48,7 +48,7 @@ export const signToken = async (user: User) => {
 }
 
 const createContext = ( { req, res, }: trpcExpress.CreateExpressContextOptions) =>
-    deserializeUser({ req, res }, session);
+    deserializeUser({ req, res }, session, users);
 
 type Context = inferAsyncReturnType<typeof createContext>;
 export const t = initTRPC.context<Context>().create();

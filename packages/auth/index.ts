@@ -36,7 +36,8 @@ export const verifyJwt = <T>(token: string, key: string,): T | null => {
 
 export const deserializeUser = async (
     { req, res }: trpcExpress.CreateExpressContextOptions,
-    session: Record<string, Session>
+    session: Record<string, Session>,
+    users: User[]
 ) => {
     try {
         // Get the token

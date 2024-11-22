@@ -3,7 +3,7 @@ import { inferAsyncReturnType, initTRPC } from "@trpc/server";
 import * as trpcExpress from "@trpc/server/adapters/express";
 import cors from "cors";
 import { z } from "zod";
-import { deserializeUser } from "auth";
+import { deserializeUser, User } from "auth";
 
 interface ChatMessage {
   user: string;
@@ -15,8 +15,13 @@ const messages: ChatMessage[] = [
   { user: "user2", message: "Hi" },
 ];
 
-const createContext = ({ req, res }: trpcExpress.CreateExpressContextOptions) =>
-    deserializeUser({ req, res });
+const session = {};
+const users: User[] = [];
+
+const createContext = ({ req, res }: trpcExpress.CreateExpressContextOptions) => {
+  const user = deserializeUser({ req, res }, session, users);
+  return { req, res, user };
+};
 
 type Context = inferAsyncReturnType<typeof createContext>;
 export const t = initTRPC.context<Context>().create();
@@ -45,7 +50,7 @@ app.use(
   "/trpc",
   trpcExpress.createExpressMiddleware({
     router: appRouter,
-    createContext: () => null,
+    createContext,
   })
 );
 
